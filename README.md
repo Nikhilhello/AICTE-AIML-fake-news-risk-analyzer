@@ -1,2 +1,1 @@
-# AICTE-AIML-fake-news-risk-analyzer
-
+# AICTE_AIML_fake-news-risk-analyzer
