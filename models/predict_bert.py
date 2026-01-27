@@ -103,20 +103,77 @@
 
 
 
+# import sys
+# import os
+# import torch
+# from transformers import DistilBertTokenizerFast, DistilBertForSequenceClassification
+
+# sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+# MODEL_PATH = "models/bert_model"
+
+# tokenizer = DistilBertTokenizerFast.from_pretrained(MODEL_PATH)
+# model = DistilBertForSequenceClassification.from_pretrained(MODEL_PATH)
+# model.eval()
+
+# def predict_news_bert(text):
+#     inputs = tokenizer(
+#         text,
+#         truncation=True,
+#         padding=True,
+#         max_length=256,
+#         return_tensors="pt"
+#     )
+
+#     with torch.no_grad():
+#         outputs = model(**inputs)
+
+#     logits = outputs.logits.squeeze()
+#     diff = torch.abs(logits[1] - logits[0]).item()
+
+#     # We do NOT claim factual truth
+#     if diff < 1.0:
+#         return "NEEDS FACT CHECKING", round(diff, 3)
+
+#     pred = torch.argmax(logits).item()
+
+#     if pred == 1:
+#         return "NO LINGUISTIC INDICATORS OF FAKE NEWS", round(diff, 3)
+#     else:
+#         return "HIGH MISINFORMATION RISK", round(diff, 3)
+
 import sys
 import os
-import torch
-from transformers import DistilBertTokenizerFast, DistilBertForSequenceClassification
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 MODEL_PATH = "models/bert_model"
 
-tokenizer = DistilBertTokenizerFast.from_pretrained(MODEL_PATH)
-model = DistilBertForSequenceClassification.from_pretrained(MODEL_PATH)
-model.eval()
+# Flag to check availability
+BERT_AVAILABLE = os.path.isdir(MODEL_PATH)
+
+if BERT_AVAILABLE:
+    import torch
+    from transformers import DistilBertTokenizerFast, DistilBertForSequenceClassification
+
+    tokenizer = DistilBertTokenizerFast.from_pretrained(
+        MODEL_PATH,
+        local_files_only=True
+    )
+    model = DistilBertForSequenceClassification.from_pretrained(
+        MODEL_PATH,
+        local_files_only=True
+    )
+    model.eval()
+else:
+    tokenizer = None
+    model = None
+
 
 def predict_news_bert(text):
+    if not BERT_AVAILABLE:
+        return "BERT MODEL NOT AVAILABLE IN DEPLOYMENT", 0.0
+
     inputs = tokenizer(
         text,
         truncation=True,
@@ -129,13 +186,12 @@ def predict_news_bert(text):
         outputs = model(**inputs)
 
     logits = outputs.logits.squeeze()
-    diff = torch.abs(logits[1] - logits[0]).item()
+    diff = abs((logits[1] - logits[0]).item())
 
-    # We do NOT claim factual truth
     if diff < 1.0:
         return "NEEDS FACT CHECKING", round(diff, 3)
 
-    pred = torch.argmax(logits).item()
+    pred = logits.argmax().item()
 
     if pred == 1:
         return "NO LINGUISTIC INDICATORS OF FAKE NEWS", round(diff, 3)
