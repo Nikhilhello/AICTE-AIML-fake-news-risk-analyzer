@@ -229,133 +229,18 @@
 #     "Baseline ML + Transformer NLP"
 # )
 
-# import streamlit as st
-# from models.predict_baseline import predict_news
-# from models.predict_bert import predict_news_bert
-# from models.predict_bert import BERT_AVAILABLE
-
-
-# # Page configuration
-# st.set_page_config(page_title="Fake News Risk Analyzer", layout="centered")
-
-# # ---------------- SIDEBAR ----------------
-# st.sidebar.title("🧠 Analysis Models")
-
-# st.sidebar.markdown(
-#     """
-# ### 🔹 Baseline ML (TF-IDF + SVM)
-
-# **How it works:**
-# - Converts text into numerical features using **TF-IDF**
-# - Learns patterns using a **Support Vector Machine**
-# - Focuses on **word frequency and writing style**
-
-# **Important Points:**
-# - Fast and lightweight
-# - Works best with **long news articles**
-# - Sensitive to dataset bias
-# - Does **not understand meaning or context**
-# - May misclassify neutral or short news
-
-# ---
-
-# ### 🔹 Advanced NLP (DistilBERT)
-
-# **How it works:**
-# - Uses a **Transformer-based language model**
-# - Understands **context and sentence structure**
-# - Analyzes relationships between words
-# - Fine-tuned on fake vs real news data
-
-# **Important Points:**
-# - Handles **short, neutral, and complex text** better
-# - Captures semantic meaning
-# - Still **does not verify factual correctness**
-# - Cannot replace human fact-checking
-# """
-# )
-
-# st.sidebar.markdown("---")
-# st.sidebar.caption("ℹ️ Models analyze language patterns, not truth.")
-
-# # ---------------- MAIN PAGE ----------------
-# st.title("📰 AI-Based Fake News Risk Analyzer")
-
-# st.write(
-#     """
-# This application analyzes **linguistic and semantic patterns** in news content to
-# assess **potential misinformation risk**.
-
-# ⚠️ **Disclaimer**
-# - The system does **NOT verify facts**
-# - It does **NOT check sources or real-world events**
-# - Results indicate **language-based risk only**
-# """
-# )
-
-# # Model selector
-# model_choice = st.radio(
-#     "Select Analysis Model:",
-#     ("Baseline ML (TF-IDF + SVM)", "Advanced NLP (DistilBERT)")
-# )
-
-# # Input area
-# news_text = st.text_area(
-#     "Paste the news article or paragraph below:",
-#     height=300
-# )
-
-# # Analyze button
-# if st.button("Analyze Content"):
-#     if news_text.strip() == "":
-#         st.warning("Please enter news text for analysis.")
-#     else:
-#         with st.spinner("Analyzing linguistic patterns..."):
-#             if model_choice == "Baseline ML (TF-IDF + SVM)":
-#                 label, confidence = predict_news(news_text)
-#                 st.caption("Model Used: TF-IDF + SVM (Style-based analysis)")
-#             else:
-#                 label, confidence = predict_news_bert(news_text)
-#                 st.caption("Model Used: DistilBERT (Contextual language analysis)")
-
-#         st.subheader("🔍 Analysis Result")
-
-#         if "HIGH MISINFORMATION" in label:
-#             st.error(f"🛑 Result: {label}")
-#         elif "NO LINGUISTIC" in label or "LIKELY REAL" in label:
-#             st.success(f"✅ Result: {label}")
-#         else:
-#             st.warning(f"⚠️ Result: {label}")
-
-#         st.write(f"**Model Confidence / Margin Score:** {confidence}")
-
-#         st.info(
-#             "ℹ️ This output reflects linguistic risk assessment only. "
-#             "Users are encouraged to verify information using trusted fact-checking sources."
-#         )
-
-# # Footer
-# st.markdown("---")
-# st.caption(
-#     "Nikhil K | AI-Based Fake News Risk Analyzer | "
-#     "Baseline ML + Transformer NLP"
-# )
+# 12345678901234567890-1234567890`1234567890---------------------------------------------------
 
 import streamlit as st
 from models.predict_baseline import predict_news
-from models.predict_bert import predict_news_bert, BERT_AVAILABLE
+from models.predict_bert import predict_news_bert
+from models.predict_bert import BERT_AVAILABLE
 
-# -------------------------------------------------
+
 # Page configuration
-# -------------------------------------------------
-st.set_page_config(
-    page_title="Fake News Risk Analyzer",
-    layout="centered"
-)
+st.set_page_config(page_title="Fake News Risk Analyzer", layout="centered")
 
-# -------------------------------------------------
-# SIDEBAR: Model Explanation
-# -------------------------------------------------
+# ---------------- SIDEBAR ----------------
 st.sidebar.title("🧠 Analysis Models")
 
 st.sidebar.markdown(
@@ -364,15 +249,15 @@ st.sidebar.markdown(
 
 **How it works:**
 - Converts text into numerical features using **TF-IDF**
-- Uses **Support Vector Machine (SVM)** for classification
+- Learns patterns using a **Support Vector Machine**
 - Focuses on **word frequency and writing style**
 
 **Important Points:**
-- Very fast and lightweight
+- Fast and lightweight
 - Works best with **long news articles**
 - Sensitive to dataset bias
 - Does **not understand meaning or context**
-- Cannot verify facts
+- May misclassify neutral or short news
 
 ---
 
@@ -381,64 +266,48 @@ st.sidebar.markdown(
 **How it works:**
 - Uses a **Transformer-based language model**
 - Understands **context and sentence structure**
-- Learns semantic relationships between words
+- Analyzes relationships between words
 - Fine-tuned on fake vs real news data
 
 **Important Points:**
-- Better for **short and neutral text**
-- Captures contextual meaning
-- Still **does not fact-check claims**
-- Large model (not included in cloud deployment)
+- Handles **short, neutral, and complex text** better
+- Captures semantic meaning
+- Still **does not verify factual correctness**
+- Cannot replace human fact-checking
 """
 )
 
 st.sidebar.markdown("---")
-st.sidebar.caption("ℹ️ Models analyze language patterns, not factual truth.")
+st.sidebar.caption("ℹ️ Models analyze language patterns, not truth.")
 
-# -------------------------------------------------
-# MAIN PAGE
-# -------------------------------------------------
+# ---------------- MAIN PAGE ----------------
 st.title("📰 AI-Based Fake News Risk Analyzer")
 
 st.write(
     """
-This application analyzes **linguistic and semantic patterns** in news content
-to assess **potential misinformation risk**.
+This application analyzes **linguistic and semantic patterns** in news content to
+assess **potential misinformation risk**.
 
 ⚠️ **Disclaimer**
-- This system does **NOT verify factual correctness**
+- The system does **NOT verify facts**
 - It does **NOT check sources or real-world events**
 - Results indicate **language-based risk only**
 """
 )
 
-# -------------------------------------------------
-# Model selection (BERT optional)
-# -------------------------------------------------
-if BERT_AVAILABLE:
-    model_choice = st.radio(
-        "Select Analysis Model:",
-        ("Baseline ML (TF-IDF + SVM)", "Advanced NLP (DistilBERT)")
-    )
-else:
-    model_choice = "Baseline ML (TF-IDF + SVM)"
-    st.info(
-        "ℹ️ DistilBERT model is not included in the deployed version "
-        "due to GitHub and hosting size constraints. "
-        "Baseline model is used instead."
-    )
+# Model selector
+model_choice = st.radio(
+    "Select Analysis Model:",
+    ("Baseline ML (TF-IDF + SVM)", "Advanced NLP (DistilBERT)")
+)
 
-# -------------------------------------------------
 # Input area
-# -------------------------------------------------
 news_text = st.text_area(
     "Paste the news article or paragraph below:",
     height=300
 )
 
-# -------------------------------------------------
-# Analysis
-# -------------------------------------------------
+# Analyze button
 if st.button("Analyze Content"):
     if news_text.strip() == "":
         st.warning("Please enter news text for analysis.")
@@ -467,11 +336,144 @@ if st.button("Analyze Content"):
             "Users are encouraged to verify information using trusted fact-checking sources."
         )
 
-# -------------------------------------------------
 # Footer
-# -------------------------------------------------
 st.markdown("---")
 st.caption(
     "Nikhil K | AI-Based Fake News Risk Analyzer | "
     "Baseline ML + Transformer NLP"
 )
+
+# import streamlit as st
+# from models.predict_baseline import predict_news
+# from models.predict_bert import predict_news_bert, BERT_AVAILABLE
+
+# # -------------------------------------------------
+# # Page configuration
+# # -------------------------------------------------
+# st.set_page_config(
+#     page_title="Fake News Risk Analyzer",
+#     layout="centered"
+# )
+
+# # -------------------------------------------------
+# # SIDEBAR: Model Explanation
+# # -------------------------------------------------
+# st.sidebar.title("🧠 Analysis Models")
+
+# st.sidebar.markdown(
+#     """
+# ### 🔹 Baseline ML (TF-IDF + SVM)
+
+# **How it works:**
+# - Converts text into numerical features using **TF-IDF**
+# - Uses **Support Vector Machine (SVM)** for classification
+# - Focuses on **word frequency and writing style**
+
+# **Important Points:**
+# - Very fast and lightweight
+# - Works best with **long news articles**
+# - Sensitive to dataset bias
+# - Does **not understand meaning or context**
+# - Cannot verify facts
+
+# ---
+
+# ### 🔹 Advanced NLP (DistilBERT)
+
+# **How it works:**
+# - Uses a **Transformer-based language model**
+# - Understands **context and sentence structure**
+# - Learns semantic relationships between words
+# - Fine-tuned on fake vs real news data
+
+# **Important Points:**
+# - Better for **short and neutral text**
+# - Captures contextual meaning
+# - Still **does not fact-check claims**
+# - Large model (not included in cloud deployment)
+# """
+# )
+
+# st.sidebar.markdown("---")
+# st.sidebar.caption("ℹ️ Models analyze language patterns, not factual truth.")
+
+# # -------------------------------------------------
+# # MAIN PAGE
+# # -------------------------------------------------
+# st.title("📰 AI-Based Fake News Risk Analyzer")
+
+# st.write(
+#     """
+# This application analyzes **linguistic and semantic patterns** in news content
+# to assess **potential misinformation risk**.
+
+# ⚠️ **Disclaimer**
+# - This system does **NOT verify factual correctness**
+# - It does **NOT check sources or real-world events**
+# - Results indicate **language-based risk only**
+# """
+# )
+
+# # -------------------------------------------------
+# # Model selection (BERT optional)
+# # -------------------------------------------------
+# if BERT_AVAILABLE:
+#     model_choice = st.radio(
+#         "Select Analysis Model:",
+#         ("Baseline ML (TF-IDF + SVM)", "Advanced NLP (DistilBERT)")
+#     )
+# else:
+#     model_choice = "Baseline ML (TF-IDF + SVM)"
+#     st.info(
+#         "ℹ️ DistilBERT model is not included in the deployed version "
+#         "due to GitHub and hosting size constraints. "
+#         "Baseline model is used instead."
+#     )
+
+# # -------------------------------------------------
+# # Input area
+# # -------------------------------------------------
+# news_text = st.text_area(
+#     "Paste the news article or paragraph below:",
+#     height=300
+# )
+
+# # -------------------------------------------------
+# # Analysis
+# # -------------------------------------------------
+# if st.button("Analyze Content"):
+#     if news_text.strip() == "":
+#         st.warning("Please enter news text for analysis.")
+#     else:
+#         with st.spinner("Analyzing linguistic patterns..."):
+#             if model_choice == "Baseline ML (TF-IDF + SVM)":
+#                 label, confidence = predict_news(news_text)
+#                 st.caption("Model Used: TF-IDF + SVM (Style-based analysis)")
+#             else:
+#                 label, confidence = predict_news_bert(news_text)
+#                 st.caption("Model Used: DistilBERT (Contextual language analysis)")
+
+#         st.subheader("🔍 Analysis Result")
+
+#         if "HIGH MISINFORMATION" in label:
+#             st.error(f"🛑 Result: {label}")
+#         elif "NO LINGUISTIC" in label or "LIKELY REAL" in label:
+#             st.success(f"✅ Result: {label}")
+#         else:
+#             st.warning(f"⚠️ Result: {label}")
+
+#         st.write(f"**Model Confidence / Margin Score:** {confidence}")
+
+#         st.info(
+#             "ℹ️ This output reflects linguistic risk assessment only. "
+#             "Users are encouraged to verify information using trusted fact-checking sources."
+#         )
+
+# # -------------------------------------------------
+# # Footer
+# # -------------------------------------------------
+# st.markdown("---")
+# st.caption(
+#     "Nikhil K | AI-Based Fake News Risk Analyzer | "
+#     "Baseline ML + Transformer NLP"
+# )
