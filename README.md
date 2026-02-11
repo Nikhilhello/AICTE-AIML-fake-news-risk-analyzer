@@ -1,5 +1,5 @@
 # AICTE_AIML_edunet foundation virtual internship
-#### AICTE Batch 6 -AIML (2025-26) DEC  ------------Project Title :-   Fake News Risk Analyzer 
+#### AICTE Batch 6 -AIML (2025-26) DEC-JAN  ------------Project Title :-   Fake News Risk Analyzer 
 
 
 # 📰 AI-Based Fake News Risk Analyzer
